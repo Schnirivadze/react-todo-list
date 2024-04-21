@@ -3,9 +3,9 @@ import Task from "./Task";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([
-        { name: "Create a React project", deadline: "2018-12-31" },
-        { name: "Learn React", deadline: "2018-12-31" },
-        { name: "Create a Todo App", deadline: "2018-12-31" }]);
+        { name: "Create a React project", deadline: "2024-12-31" },
+        { name: "Learn React", deadline: "2025-01-30" },
+        { name: "Create a Todo App", deadline: "2025-01-31" }]);
     const [newTask, setNewTask] = useState("");
 
     const handleInputChange = (event) => {
@@ -24,6 +24,7 @@ function ToDoList() {
         updatedTasks.splice(index, 1);
         setTasks(updatedTasks);
     }
+    
     const editTask = (index, newName, newDeadline) => {
         const updatedTasks = [...tasks];
         updatedTasks[index].name = newName
@@ -31,25 +32,16 @@ function ToDoList() {
         console.log("edited")
         setTasks(updatedTasks);
     }
-    // const moveTaskUp = (index) => {
-    //     if (index > 0) {
-    //         const updatedTasks = [...tasks];
-    //         const temp = updatedTasks[index];
-    //         updatedTasks[index] = updatedTasks[index - 1];
-    //         updatedTasks[index - 1] = temp;
-    //         setTasks(updatedTasks);
-    //     }
-    // }
 
-    // const moveTaskDown = (index) => {
-    //     if (index < tasks.length - 1) {
-    //         const updatedTasks = [...tasks];
-    //         const temp = updatedTasks[index];
-    //         updatedTasks[index] = updatedTasks[index + 1];
-    //         updatedTasks[index + 1] = temp;
-    //         setTasks(updatedTasks);
-    //     }
-    // }
+    // Function to compare task deadlines
+    const compareDeadlines = (task1, task2) => {
+        const deadline1 = new Date(task1.deadline);
+        const deadline2 = new Date(task2.deadline);
+        return deadline1 - deadline2;
+    };
+
+    // Sort tasks by deadline
+    const sortedTasks = [...tasks].sort(compareDeadlines);
 
     return (
         <>
@@ -61,7 +53,7 @@ function ToDoList() {
                     </select>
                 </div>
                 <div className="tasks-wrapper">
-                    {tasks.map((value, index) => (
+                    {sortedTasks.map((value, index) => (
                         <Task
                             key={index}
                             index={index}
