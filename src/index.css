@@ -31,7 +31,6 @@ footer a {
 }
 
 .todolist {
-    min-width: 500px;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -122,4 +121,26 @@ footer a {
     font-size: 0.75em;
     font-weight: 400;
     color: #474747;
+}
+
+.task-edit-name {
+    border: none;
+    border-bottom: 1px #474747 dashed;
+    font-size: 1em;
+    font-weight: 600;
+    color: #474747;
+}
+
+.task-edit-deadline {
+    font-size: 0.85em;
+    font-weight: 400;
+    color: #474747;
+}
+
+.task-edit-deadline input {
+    font-weight: 400;
+    color: #474747;
+    border: none;
+    background-color: transparent;
+    outline: none;
 }
