@@ -24,8 +24,7 @@ function ToDoList() {
 
     const deleteTask = (index) => {
         const updatedTasks = [...tasks];
-        updatedTasks=updatedTasks.filter(item => item.id != index);
-        setTasks(updatedTasks);
+        setTasks(updatedTasks.filter(item => item.id != index));
     }
 
     const editTask = (index, newName, newDeadline) => {
