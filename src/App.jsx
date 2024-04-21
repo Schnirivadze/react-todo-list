@@ -6,7 +6,7 @@ function App() {
     <>
       <header>TODO LIST</header>
       <ToDoList />
-      <footer><a href="https://github.com/Schnirivadze">Developed by Andrii Seleznov</a></footer>
+      <footer><a href="https://github.com/Schnirivadze/react-todo-list">Developed by Andrii Seleznov</a></footer>
     </>
   );
 }
