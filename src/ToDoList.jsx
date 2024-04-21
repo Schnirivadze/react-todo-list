@@ -3,33 +3,36 @@ import Task from "./Task";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([
-        { name: "Create a React project", deadline: "2024-12-31" },
-        { name: "Learn React", deadline: "2025-01-30" },
-        { name: "Create a Todo App", deadline: "2025-01-31" }]);
-    const [newTask, setNewTask] = useState("");
-
-    const handleInputChange = (event) => {
-        setNewTask(event.target.value);
-    }
+        { id: 0, name: "Create a React project", deadline: "2024-12-31" },
+        { id: 1, name: "Learn React", deadline: "2025-01-30" },
+        { id: 2, name: "Create a Todo App", deadline: "2025-01-31" }
+    ]);
 
     const addTask = () => {
-        if (newTask.trim() !== "") {
-            setTasks([...tasks, newTask]);
-            setNewTask("");
-        }
+        // Get the current date
+        const currentDate = new Date();
+
+        // Extract year, month, and day
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const day = String(currentDate.getDate()).padStart(2, '0');
+
+        // Format the date as "YYYY-MM-DD"
+        const formattedDate = `${year}-${month}-${day}`;
+        setTasks([...tasks, {id: tasks.length, name: "Input task description", deadline: formattedDate }]);
     }
 
     const deleteTask = (index) => {
         const updatedTasks = [...tasks];
-        updatedTasks.splice(index, 1);
+        updatedTasks=updatedTasks.filter(item => item.id != index);
         setTasks(updatedTasks);
     }
-    
+
     const editTask = (index, newName, newDeadline) => {
         const updatedTasks = [...tasks];
-        updatedTasks[index].name = newName
-        updatedTasks[index].deadline = newDeadline
-        console.log("edited")
+        const foundindex = updatedTasks.findIndex(item => item.id == index);
+        updatedTasks[foundindex].name = newName
+        updatedTasks[foundindex].deadline = newDeadline
         setTasks(updatedTasks);
     }
 
@@ -56,7 +59,7 @@ function ToDoList() {
                     {sortedTasks.map((value, index) => (
                         <Task
                             key={index}
-                            index={index}
+                            index={value.id}
                             label={value.name}
                             deadline={value.deadline}
                             deleteTask={deleteTask}
