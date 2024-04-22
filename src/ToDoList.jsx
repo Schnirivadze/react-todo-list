@@ -4,6 +4,7 @@ import Task from "./Task";
 
 export const TagsContext = createContext();
 function ToDoList() {
+    const [tagFilter, setFilter] = useState("All");
     const [tags, setTags] = useState([
         { name: "fix", color: "yellow" },
         { name: "urgent", color: "red" },
@@ -61,16 +62,22 @@ function ToDoList() {
         setTasks(updatedTasks);
     }
 
-    // Sort tasks by deadline
-    const sortedTasks = [...tasks].sort(compareDeadlines);
-
+    let sortedTasks;
+    if (tagFilter !== "All") {
+        sortedTasks = [...tasks].filter((task) => task.tags.indexOf(tagFilter) !== -1).sort(compareDeadlines);
+    } else {
+        sortedTasks = [...tasks].sort(compareDeadlines);
+    }
     return (
         <>
             <div className="todolist">
                 <div className="controls-wrapper">
                     <button className="add-task-button" onClick={addTask}>Add Task</button>
-                    <select className="task-filter">
+                    <select onChange={(event)=>{setFilter(event.target.value)}} className="task-filter">
                         <option value="All">All</option>
+                        {tags.map((tag,id)=>(
+                            <option key={id} value={tag.name}>{tag.name}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="tasks-wrapper">
