@@ -22,11 +22,14 @@ function Task(props) {
         else newTags.splice(newTags.indexOf(tag), 1)
         props.editTags(props.index, newTags)
     }
+    const editComplete = (event) => {
+        props.editDone(props.index, event.target.checked)
+    }
     return (
         <div className="task">
             <div className="task-display">
                 <div className="task-info">
-                    <input type="checkbox" className="task-completion-checkbox" />
+                    <input type="checkbox" className="task-completion-checkbox" checked={props.done} onChange={(event) => editComplete(event)} />
                     <div className="task-info-wrapper">
                         <div className="task-label-wrapper">
 
@@ -37,7 +40,7 @@ function Task(props) {
                                 </>
                             ) : (
                                 <>
-                                    <div className="task-name">{props.label}</div>
+                                    <div className={`task-name ${(props.done) ? "task-name-done" : ""}`}>{props.label}</div>
                                     <div className="task-date">Till {props.deadline}</div>
                                 </>
                             )}
@@ -57,8 +60,8 @@ function Task(props) {
                     <button className="task-delete-button" onClick={() => props.deleteTask(props.index)}><img src={deleteIcon} alt="Delete" /></button>
                     <button className="task-edit-button" onClick={() => toggleEditing()}>{editing ? (<img src={confirmIcon} alt="Save" />) : (<img src={editIcon} alt="Edit" />)}</button>
                 </div></div>
-                {(editing)?(
-                    <div className="task-settings">
+            {(editing) ? (
+                <div className="task-settings">
                     {globalTags.map((tag, index) =>
                         <div
                             key={index}
@@ -67,9 +70,9 @@ function Task(props) {
                         >{tag.name}</div>
                     )}
                 </div>
-                ):(<></>)}
-            
-            
+            ) : (<></>)}
+
+
         </div>
     );
 }

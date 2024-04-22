@@ -17,9 +17,9 @@ function ToDoList() {
         { name: "leisure", color: "pink" }
     ]);
     const [tasks, setTasks] = useState([
-        { id: 0, name: "Create a React project", deadline: "2024-12-31", tags: ["leisure", "urgent", "work", "job"] },
-        { id: 1, name: "Learn React", deadline: "2025-01-30", tags: ["fix", "urgent", "family", "personal"] },
-        { id: 2, name: "Create a Todo App", deadline: "2025-01-31", tags: ["fix", "urgent", "shopping", "health"] }
+        { id: 0, done: true, name: "Create a React project", deadline: "2024-12-31", tags: ["leisure", "work", "job"] },
+        { id: 1, done: true, name: "Learn React", deadline: "2025-01-30", tags: ["urgent", "personal"] },
+        { id: 2, done: false, name: "Create a Todo App", deadline: "2025-01-31", tags: ["fix", "urgent", "work"] }
     ]);
 
     const addTask = () => {
@@ -61,6 +61,11 @@ function ToDoList() {
         updatedTasks[index].tags = newTags;
         setTasks(updatedTasks);
     }
+    const editDone = (index, newState) => {
+        const updatedTasks = [...tasks];
+        updatedTasks[index].done = newState;
+        setTasks(updatedTasks);
+    }
 
     let sortedTasks;
     if (tagFilter !== "All") {
@@ -73,9 +78,9 @@ function ToDoList() {
             <div className="todolist">
                 <div className="controls-wrapper">
                     <button className="add-task-button" onClick={addTask}>Add Task</button>
-                    <select onChange={(event)=>{setFilter(event.target.value)}} className="task-filter">
+                    <select onChange={(event) => { setFilter(event.target.value) }} className="task-filter">
                         <option value="All">All</option>
-                        {tags.map((tag,id)=>(
+                        {tags.map((tag, id) => (
                             <option key={id} value={tag.name}>{tag.name}</option>
                         ))}
                     </select>
@@ -89,9 +94,11 @@ function ToDoList() {
                                 label={value.name}
                                 deadline={value.deadline}
                                 tags={value.tags}
+                                done={value.done}
                                 deleteTask={deleteTask}
                                 editTask={editTask}
                                 editTags={editTags}
+                                editDone={editDone}
                             />
                         ))}
                     </TagsContext.Provider>
