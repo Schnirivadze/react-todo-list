@@ -19,18 +19,26 @@ function Task(props) {
             <div className="task-info">
                 <input type="checkbox" className="task-completion-checkbox" />
                 <div className="task-info-wrapper">
+                    <div className="task-label-wrapper">
 
-                    {editing ? (
-                        <>
-                            <input className="task-edit-name" type="text" defaultValue={props.label} id={`task-edit-name-${props.index}`} />
-                            <nav className="task-edit-deadline">Till <input type="date" defaultValue={props.deadline} id={`task-edit-deadline-${props.index}`} /></nav>
-                        </>
-                    ) : (
-                        <>
-                            <div className="task-name">{props.label}</div>
-                            <div className="task-date">Till {props.deadline}</div>
-                        </>
-                    )}
+                        {editing ? (
+                            <>
+                                <input className="task-edit-name" type="text" defaultValue={props.label} id={`task-edit-name-${props.index}`} />
+                                <nav className="task-edit-deadline">Till <input type="date" defaultValue={props.deadline} id={`task-edit-deadline-${props.index}`} /></nav>
+                            </>
+                        ) : (
+                            <>
+                                <div className="task-name">{props.label}</div>
+                                <div className="task-date">Till {props.deadline}</div>
+                            </>
+                        )}
+                    </div>
+                    <div className="task-tags">
+                        <div className="task-tag">fix</div>
+                        <div className="task-tag">urgent</div>
+                        <div className="task-tag">Non urgent</div>
+                        <div className="task-tag">plannung</div>
+                    </div>
                 </div>
             </div>
             <div className="buttons">
