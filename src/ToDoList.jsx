@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 import Task from "./Task";
 
+
+export const TagsContext = createContext();
 function ToDoList() {
+    const [tags, setTags] = useState([
+        { name: "fix", color: "yellow" },
+        { name: "urgent", color: "red" },
+        { name: "job", color: "aqua" },
+        { name: "family", color: "green" },
+        { name: "personal", color: "blue" },
+        { name: "work", color: "gray" },
+        { name: "health", color: "purple" },
+        { name: "shopping", color: "violet" },
+        { name: "leisure", color: "pink" }
+    ]);
     const [tasks, setTasks] = useState([
-        { id: 0, name: "Create a React project", deadline: "2024-12-31" },
-        { id: 1, name: "Learn React", deadline: "2025-01-30" },
-        { id: 2, name: "Create a Todo App", deadline: "2025-01-31" }
+        { id: 0, name: "Create a React project", deadline: "2024-12-31", tags: ["leisure", "urgent", "work", "job"] },
+        { id: 1, name: "Learn React", deadline: "2025-01-30", tags: ["fix", "urgent", "family", "personal"] },
+        { id: 2, name: "Create a Todo App", deadline: "2025-01-31", tags: ["fix", "urgent", "shopping", "health"] }
     ]);
 
     const addTask = () => {
@@ -19,7 +32,7 @@ function ToDoList() {
 
         // Format the date as "YYYY-MM-DD"
         const formattedDate = `${year}-${month}-${day}`;
-        setTasks([...tasks, {id: tasks.length, name: "Input task description", deadline: formattedDate }]);
+        setTasks([...tasks, { id: tasks.length, name: "Input task description", deadline: formattedDate, tags: ["personal"] }]);
     }
 
     const deleteTask = (index) => {
@@ -42,6 +55,12 @@ function ToDoList() {
         return deadline1 - deadline2;
     };
 
+    const editTags = (index, newTags) => {
+        const updatedTasks = [...tasks];
+        updatedTasks[index].tags = newTags;
+        setTasks(updatedTasks);
+    }
+
     // Sort tasks by deadline
     const sortedTasks = [...tasks].sort(compareDeadlines);
 
@@ -55,16 +74,20 @@ function ToDoList() {
                     </select>
                 </div>
                 <div className="tasks-wrapper">
-                    {sortedTasks.map((value, index) => (
-                        <Task
-                            key={index}
-                            index={value.id}
-                            label={value.name}
-                            deadline={value.deadline}
-                            deleteTask={deleteTask}
-                            editTask={editTask}
-                        />
-                    ))}
+                    <TagsContext.Provider value={tags}>
+                        {sortedTasks.map((value, index) => (
+                            <Task
+                                key={index}
+                                index={value.id}
+                                label={value.name}
+                                deadline={value.deadline}
+                                tags={value.tags}
+                                deleteTask={deleteTask}
+                                editTask={editTask}
+                                editTags={editTags}
+                            />
+                        ))}
+                    </TagsContext.Provider>
                 </div>
             </div>
         </>

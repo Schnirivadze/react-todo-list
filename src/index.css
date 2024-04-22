@@ -5,6 +5,11 @@
     font-weight: 400;
 }
 
+::selection {
+    background-color: #eadcfc;
+    color: #310072;
+}
+
 body {
     background-color: #f8f8ff
 }
@@ -19,6 +24,7 @@ header {
     display: flex;
     justify-content: center;
     align-content: center;
+    user-select: none;
 }
 
 footer a {
@@ -28,6 +34,7 @@ footer a {
     top: calc(100vh - 2em);
     width: 100%;
     text-align: center;
+    user-select: none;
 }
 
 .todolist {
@@ -40,6 +47,7 @@ footer a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    user-select: none;
 }
 
 .add-task-button {
@@ -73,19 +81,35 @@ footer a {
     background-color: white;
     border-radius: 5px;
     margin-bottom: 1em;
-    min-height: 4em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.task-display {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+}
+
+.task-settings {
+    width: 75%;
+    margin-left: 12.5%;
+    height: 5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .buttons {
     width: 5em;
     display: flex;
     justify-content: space-between;
+    user-select: none;
 }
 
 .buttons button {
@@ -99,7 +123,7 @@ footer a {
 }
 
 .task-info {
-    width: 82.5%;
+    width: calc(100% - 7em);
     display: flex;
     flex-direction: row;
     height: 100%;
@@ -149,20 +173,23 @@ footer a {
 
 .task-tag {
     background-color: var(--backgroundColor);
+    border: 2px solid var(--outlineColor);
     color: var(--foregroundColor);
-    border-radius: 0.5em;
-    padding: 0.25em;
+    border-radius: calc(2em / 3);
+    padding: 0.5em;
     display: inline-block;
     margin: 2px;
-    /* border: 2px solid color-mix(in srgb, red 50%, white 50%); */
+    user-select: none;
 }
 
 .task-tags {
-    /* background-color: red; */
     margin-top: 5px;
     margin-bottom: 5px;
     width: 33%;
+    display: flex;
+    flex-direction: row-reverse;
 }
+
 
 .task-info-wrapper {
     display: flex;
@@ -176,46 +203,127 @@ footer a {
     width: 66%;
 }
 
-.task-tag-gray {
-    --backgroundColor: #dce3e8;
+.task-tag-gray-selected {
+    --outlineColor: #dce3e8;
     --foregroundColor: #3c5261;
+    --backgroundColor: #e8edf0;
 }
 
-.task-tag-blue {
-    --backgroundColor: #d3e3f9;
+.task-tag-blue-selected {
+    --outlineColor: #d3e3f9;
     --foregroundColor: #1353a8;
+    --backgroundColor: #e3f4ff;
 }
 
-.task-tag-red {
-    --backgroundColor: #fadcd9;
+.task-tag-red-selected {
+    --outlineColor: #fadcd9;
     --foregroundColor: #a51f13;
+    --backgroundColor: #f8e5e4;
 }
 
-.task-tag-green {
-    --backgroundColor: #c7ebd1;
+.task-tag-green-selected {
+    --outlineColor: #c7ebd1;
     --foregroundColor: #16694f;
+    --backgroundColor: #d4fade;
 }
-.task-tag-yellow {
-    --backgroundColor: #f8ef9c;
+
+.task-tag-yellow-selected {
+    --outlineColor: #f8ef9c;
     --foregroundColor: #756119;
+    --backgroundColor: #ffffdd;
 }
 
-.task-tag-aqua {
-    --backgroundColor: #beebe7;
+.task-tag-aqua-selected {
+    --outlineColor: #beebe7;
     --foregroundColor: #0b568b;
+    --backgroundColor: #d9f9ff;
 }
 
-.task-tag-violet {
-    --backgroundColor: #dddff9;
+.task-tag-violet-selected {
+    --outlineColor: #dddff9;
     --foregroundColor: #3f49b2;
+    --backgroundColor: #edeffe;
 }
 
-.task-tag-purple {
-    --backgroundColor: #eadcfc;
+.task-tag-purple-selected {
+    --outlineColor: #eadcfc;
     --foregroundColor: #733bb0;
+    --backgroundColor: #fbecff;
 }
 
-.task-tag-pink {
-    --backgroundColor: #f7daed;
+.task-tag-pink-selected {
+    --outlineColor: #f7daed;
     --foregroundColor: #981b77;
+    --backgroundColor: #fee0f4;
+}
+
+.task-settings .task-tag:hover {
+    border-color: var(--hoverColor);
+}
+
+.task-settings .task-tag {
+    transition: 0.25s color, 0.25s background-color, 0.25s border-color;
+}
+
+.task-tag-gray-unselected {
+    --outlineColor: #a7b8c4;
+    --foregroundColor: #3c5261;
+    --backgroundColor: transparent;
+    --hoverColor: #dce3e8;
+}
+
+.task-tag-blue-unselected {
+    --outlineColor: #a7b8c4;
+    --foregroundColor: #1353a8;
+    --backgroundColor: transparent;
+    --hoverColor: #d3e3f9;
+}
+
+.task-tag-red-unselected {
+    --outlineColor: #a7b8c4;
+    --foregroundColor: #a51f13;
+    --backgroundColor: transparent;
+    --hoverColor: #fadcd9;
+}
+
+.task-tag-green-unselected {
+    --outlineColor: #a7b8c4;
+    --foregroundColor: #16694f;
+    --backgroundColor: transparent;
+    --hoverColor: #c7ebd1;
+}
+
+.task-tag-yellow-unselected {
+    --outlineColor: #a7b8c4;
+    --foregroundColor: #756119;
+    --backgroundColor: transparent;
+    --hoverColor: #f8ef9c;
+}
+
+.task-tag-aqua-unselected {
+    --outlineColor: #a7b8c4;
+    --foregroundColor: #0b568b;
+    --backgroundColor: transparent;
+    --hoverColor: #beebe7;
+}
+
+.task-tag-violet-unselected {
+    --outlineColor: #a7b8c4;
+    --foregroundColor: #3f49b2;
+    --backgroundColor: transparent;
+    --hoverColor: #dddff9;
+}
+
+.task-tag-purple-unselected {
+    --outlineColor: #a7b8c4;
+    --foregroundColor: #733bb0;
+    --backgroundColor: transparent;
+    --hoverColor: #eadcfc;
+}
+
+.task-tag-pink-unselected {
+    --outlineColor: #a7b8c4;
+    --foregroundColor: #981b77;
+    --backgroundColor: transparent;
+    --hoverColor: #f7daed;
 }
