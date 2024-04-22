@@ -148,27 +148,74 @@ footer a {
 }
 
 .task-tag {
-    background-color: rgba(45, 191, 191, 0.75);
-    color: white;
+    background-color: var(--backgroundColor);
+    color: var(--foregroundColor);
     border-radius: 0.5em;
     padding: 0.25em;
     display: inline-block;
     margin: 2px;
     /* border: 2px solid color-mix(in srgb, red 50%, white 50%); */
 }
-.task-tags{
+
+.task-tags {
     /* background-color: red; */
     margin-top: 5px;
     margin-bottom: 5px;
     width: 33%;
 }
-.task-info-wrapper{
+
+.task-info-wrapper {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
-.task-label-wrapper{
+
+.task-label-wrapper {
     width: 66%;
+}
+
+.task-tag-gray {
+    --backgroundColor: #dce3e8;
+    --foregroundColor: #3c5261;
+}
+
+.task-tag-blue {
+    --backgroundColor: #d3e3f9;
+    --foregroundColor: #1353a8;
+}
+
+.task-tag-red {
+    --backgroundColor: #fadcd9;
+    --foregroundColor: #a51f13;
+}
+
+.task-tag-green {
+    --backgroundColor: #c7ebd1;
+    --foregroundColor: #16694f;
+}
+.task-tag-yellow {
+    --backgroundColor: #f8ef9c;
+    --foregroundColor: #756119;
+}
+
+.task-tag-aqua {
+    --backgroundColor: #beebe7;
+    --foregroundColor: #0b568b;
+}
+
+.task-tag-violet {
+    --backgroundColor: #dddff9;
+    --foregroundColor: #3f49b2;
+}
+
+.task-tag-purple {
+    --backgroundColor: #eadcfc;
+    --foregroundColor: #733bb0;
+}
+
+.task-tag-pink {
+    --backgroundColor: #f7daed;
+    --foregroundColor: #981b77;
 }

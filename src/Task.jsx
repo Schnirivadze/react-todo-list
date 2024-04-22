@@ -34,10 +34,10 @@ function Task(props) {
                         )}
                     </div>
                     <div className="task-tags">
-                        <div className="task-tag">fix</div>
-                        <div className="task-tag">urgent</div>
-                        <div className="task-tag">Non urgent</div>
-                        <div className="task-tag">plannung</div>
+                        <div className="task-tag task-tag-red">fix</div>
+                        <div className="task-tag task-tag-green">urgent</div>
+                        <div className="task-tag task-tag-blue">Non urgent</div>
+                        <div className="task-tag task-tag-yellow">plannung</div>
                     </div>
                 </div>
             </div>
