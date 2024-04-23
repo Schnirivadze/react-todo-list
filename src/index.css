@@ -94,6 +94,8 @@ footer a {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .task-settings {
@@ -189,8 +191,6 @@ footer a {
 }
 
 .task-tags {
-    margin-top: 5px;
-    margin-bottom: 5px;
     width: 33%;
     display: flex;
     flex-direction: row-reverse;

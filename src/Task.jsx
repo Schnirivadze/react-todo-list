@@ -31,7 +31,7 @@ function Task(props) {
                 <div className="task-info">
                     <input type="checkbox" className="task-completion-checkbox" checked={props.done} onChange={(event) => editComplete(event)} />
                     <div className="task-info-wrapper">
-                        <div className="task-label-wrapper">
+                        <div className={(props.tags.length != 0) ? "task-label-wrapper" : ""}>
 
                             {editing ? (
                                 <>
@@ -45,14 +45,16 @@ function Task(props) {
                                 </>
                             )}
                         </div>
-                        <div className="task-tags">
-                            {props.tags.map((tagName, index) =>
-                                <div
-                                    key={index}
-                                    className={`task-tag task-tag-${globalTags.find((element) => element.name == tagName).color}-selected`}
-                                >{tagName}</div>
-                            )}
-                        </div>
+                        {(props.tags.length != 0) ? (
+                            <div className="task-tags">
+                                {props.tags.map((tagName, index) =>
+                                    <div
+                                        key={index}
+                                        className={`task-tag task-tag-${globalTags.find((element) => element.name == tagName).color}-selected`}
+                                    >{tagName}</div>
+                                )}
+                            </div>
+                        ) : (<></>)}
                     </div>
                 </div>
 
