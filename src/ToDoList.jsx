@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import Task from "./Task";
 
 
@@ -21,7 +21,10 @@ function ToDoList() {
         { id: 1, done: true, name: "Learn React", deadline: "2025-01-30", tags: ["urgent", "personal"] },
         { id: 2, done: false, name: "Create a Todo App", deadline: "2025-01-31", tags: ["fix", "urgent", "work"] }
     ]);
-
+    useEffect(() => {
+        const tasks = localStorage.getItem("tasks")
+        if(tasks!=null) setTasks(JSON.parse(tasks));
+    }, [])
     const addTask = () => {
         // Get the current date
         const currentDate = new Date();
@@ -33,12 +36,14 @@ function ToDoList() {
 
         // Format the date as "YYYY-MM-DD"
         const formattedDate = `${year}-${month}-${day}`;
-        setTasks([...tasks, { id: tasks.length, name: "Input task description", deadline: formattedDate, tags: ["personal"] }]);
+        setTasks([...tasks, { id: tasks.length, done: false, name: "Input task description", deadline: formattedDate, tags: ["personal"] }]);
+        localStorage.setItem("tasks", JSON.stringify(tasks))
     }
 
     const deleteTask = (index) => {
         const updatedTasks = [...tasks];
         setTasks(updatedTasks.filter(item => item.id != index));
+        localStorage.setItem("tasks", JSON.stringify(tasks))
     }
 
     const editTask = (index, newName, newDeadline) => {
@@ -47,6 +52,7 @@ function ToDoList() {
         updatedTasks[foundindex].name = newName
         updatedTasks[foundindex].deadline = newDeadline
         setTasks(updatedTasks);
+        localStorage.setItem("tasks", JSON.stringify(tasks))
     }
 
     // Function to compare task deadlines
@@ -60,18 +66,22 @@ function ToDoList() {
         const updatedTasks = [...tasks];
         updatedTasks[index].tags = newTags;
         setTasks(updatedTasks);
+        localStorage.setItem("tasks", JSON.stringify(tasks))
     }
     const editDone = (index, newState) => {
         const updatedTasks = [...tasks];
         updatedTasks[index].done = newState;
         setTasks(updatedTasks);
+        localStorage.setItem("tasks", JSON.stringify(tasks))
     }
 
     let sortedTasks;
-    if (tagFilter !== "All") {
-        sortedTasks = [...tasks].filter((task) => task.tags.indexOf(tagFilter) !== -1).sort(compareDeadlines);
-    } else {
-        sortedTasks = [...tasks].sort(compareDeadlines);
+    if (tasks.length != 0) {
+        if (tagFilter !== "All") {
+            sortedTasks = [...tasks].filter((task) => task.tags.indexOf(tagFilter) !== -1).sort(compareDeadlines);
+        } else {
+            sortedTasks = [...tasks].sort(compareDeadlines);
+        }
     }
     return (
         <>
